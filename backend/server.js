@@ -1,18 +1,19 @@
 const express = require('express');
 const http = require('http');
-const { Server } = require('socket.io');
+const { Server: SocketServer } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const ioServer = new SocketServer(server);
 
 app.use(express.static('frontend'));
 
-io.on('connection', (socket) => {
+ioServer.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg); // send to everyone
+  socket.on('chat_msg', (msg) => {
+    console.log(`Broadcasting message: ${msg}`);
+    ioServer.emit('chat_msg', msg); // send to everyone
   });
 
   socket.on('disconnect', () => {

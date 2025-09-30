@@ -6,12 +6,12 @@ const sendBtn = document.getElementById('send');
 
 sendBtn.onclick = () => {
   if (input.value) {
-    socket.emit('chat message', input.value);
+    socket.emit('chat_msg', input.value);
     input.value = '';
   }
 };
 
-socket.on('chat message', (msg) => {
+socket.on('chat_msg', (msg) => {
   const li = document.createElement('li');
   li.textContent = msg;
   messages.appendChild(li);
