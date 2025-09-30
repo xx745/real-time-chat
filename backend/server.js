@@ -12,7 +12,9 @@ ioServer.on('connection', (socket) => {
   console.log('a user connected');
 
   socket.on('chat_msg', (msg) => {
-    console.log(`Broadcasting message: ${msg}`);
+    console.log(
+      `Broadcasting message for user "${msg.username}": ${msg.message}`,
+    );
     ioServer.emit('chat_msg', msg); // send to everyone
   });
 
