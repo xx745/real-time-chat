@@ -18,12 +18,21 @@ joinBtn.onclick = () => {
   }
 };
 
-sendBtn.onclick = () => {
+function sendMessage() {
   if (input.value) {
     socket.emit('chat_msg', { username, message: input.value });
     input.value = '';
   }
-};
+}
+
+sendBtn.onclick = sendMessage;
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    sendMessage();
+  }
+});
 
 socket.on('chat_msg', (data) => {
   const li = document.createElement('li');
